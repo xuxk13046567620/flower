@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+         const path=require("../static");
+const fs=require('fs');
+
+fs.stat('img',(err)=>{
+	if (err)return;
+	var  result='{'
+	fs.readdir("img",(err,data)=>{//data返回的是对象
+		for(var i=0;i<Object.keys(data).length;i++){
+			let ImgPath="\"img/"+data[i]+"\"";
+			result+="\""+data[i]+"\":"+ImgPath+",";
+		}
+		result=result.substring(0,result.length-1);
+		result+='}'
+		fs.writeFile("imgPath.json",result,(err)=>{
+			if(err)return;
+			console.log("写入文件成功");
+		});
+	});
+});
+    </script>
+</body>
+</html>
